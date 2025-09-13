@@ -75,15 +75,12 @@ public class MelFalc_2025_Decode_Rev1Starter extends OpMode {
     final double LAUNCHER_MIN_VELOCITY = 1075;
 
     // Declare OpMode members.
-   // private DcMotor leftDrive = null;
-    //private DcMotor rightDrive = null;
+   private DcMotor leftDrive = null;
+    private DcMotor rightDrive = null;
     private DcMotorEx launcher = null;
     private CRServo leftFeeder = null;
     private CRServo rightFeeder = null;
-    private DcMotor front_left = null;
-    private DcMotor front_right = null;
-    private DcMotor back_left = null;
-    private DcMotor back_right = null;
+
     ElapsedTime feederTimer = new ElapsedTime();
 
     /*
