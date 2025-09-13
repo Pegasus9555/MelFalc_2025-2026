@@ -2,6 +2,17 @@
 
 Welcome!
 
+This is the code for the 2025 Millenium Falcon team.  Core Coding Team:
+
+ - Charlotte
+ - Nikhil
+ - Gabe
+ - Etc
+
+Coached by Brent Piercey
+
+For questions, please reach out.
+
 This module, TeamCode, is the place where you will write/paste the code for your team's
 robot controller App. This module is currently empty (a clean slate) but the
 process for adding OpModes is straightforward.
