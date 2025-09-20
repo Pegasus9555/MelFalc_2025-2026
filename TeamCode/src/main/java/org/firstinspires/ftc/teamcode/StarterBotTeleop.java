@@ -105,7 +105,6 @@ public class StarterBotTeleop extends OpMode {
         LAUNCH,
         LAUNCHING,
     }
-
     private LaunchState launchState;
 
     // Setup a variable for each drive wheel to save power level for telemetry

@@ -34,6 +34,8 @@ package org.firstinspires.ftc.teamcode;
 
 import static com.qualcomm.robotcore.hardware.DcMotor.ZeroPowerBehavior.BRAKE;
 
+import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.gamepad1;
+
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.CRServo;
@@ -58,7 +60,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
  * we will also need to adjust the "PIDF" coefficients with some that are a better fit for our application.
  */
 
-@TeleOp(name = "StarterBotTeleop", group = "StarterBot")
+@TeleOp(name = "Rev1 Starter Code", group = "Rev1")
 //@Disabled
 public class MelFalc_2025_Decode_Rev1Starter extends OpMode {
     final double FEED_TIME_SECONDS = 0.20; //The feeder servos run this long when a shot is requested.
@@ -75,12 +77,19 @@ public class MelFalc_2025_Decode_Rev1Starter extends OpMode {
     final double LAUNCHER_MIN_VELOCITY = 1075;
 
     // Declare OpMode members.
-   private DcMotor leftDrive = null;
+   /*private DcMotor leftDrive = null;
     private DcMotor rightDrive = null;
+    */
     private DcMotorEx launcher = null;
     private CRServo leftFeeder = null;
     private CRServo rightFeeder = null;
-
+    private DcMotor front_left  = null;
+    private DcMotor front_right = null;
+    private DcMotor back_left   = null;
+    private DcMotor back_right  = null;
+    double driveMultiplicative = 0.8;
+    boolean turboMode = false;
+    double rotationMultiplicative = 0.75;
     ElapsedTime feederTimer = new ElapsedTime();
 
     /*
@@ -124,11 +133,21 @@ public class MelFalc_2025_Decode_Rev1Starter extends OpMode {
          * to 'get' must correspond to the names assigned during the robot configuration
          * step.
          */
-        leftDrive = hardwareMap.get(DcMotor.class, "left_drive");
+       /* leftDrive = hardwareMap.get(DcMotor.class, "left_drive");
         rightDrive = hardwareMap.get(DcMotor.class, "right_drive");
+
+        */
         launcher = hardwareMap.get(DcMotorEx.class, "launcher");
         leftFeeder = hardwareMap.get(CRServo.class, "left_feeder");
         rightFeeder = hardwareMap.get(CRServo.class, "right_feeder");
+        front_left = hardwareMap.get(DcMotor.class, "fldrive");
+        front_right = hardwareMap.get(DcMotor.class, "frdrive");
+        back_left = hardwareMap.get(DcMotor.class, "bldrive");
+        back_right = hardwareMap.get(DcMotor.class, "brdrive");
+        front_left.setDirection(DcMotor.Direction.REVERSE);
+        back_left.setDirection(DcMotor.Direction.REVERSE);
+        front_right.setDirection(DcMotor.Direction.FORWARD);
+        back_right.setDirection(DcMotor.Direction.FORWARD);
 
         /*
          * To drive forward, most robots need the motor on one side to be reversed,
@@ -137,9 +156,9 @@ public class MelFalc_2025_Decode_Rev1Starter extends OpMode {
          * Note: The settings here assume direct drive on left and right wheels. Gear
          * Reduction or 90 Deg drives may require direction flips
          */
-        leftDrive.setDirection(DcMotor.Direction.REVERSE);
+        /*leftDrive.setDirection(DcMotor.Direction.REVERSE);
         rightDrive.setDirection(DcMotor.Direction.FORWARD);
-
+         */
         /*
          * Here we set our launcher to the RUN_USING_ENCODER runmode.
          * If you notice that you have no control over the velocity of the motor, it just jumps
@@ -154,8 +173,8 @@ public class MelFalc_2025_Decode_Rev1Starter extends OpMode {
          * slow down much faster when it is coasting. This creates a much more controllable
          * drivetrain. As the robot stops much quicker.
          */
-        leftDrive.setZeroPowerBehavior(BRAKE);
-        rightDrive.setZeroPowerBehavior(BRAKE);
+        //leftDrive.setZeroPowerBehavior(BRAKE);
+        //rightDrive.setZeroPowerBehavior(BRAKE);
         launcher.setZeroPowerBehavior(BRAKE);
 
         /*
@@ -206,8 +225,10 @@ public class MelFalc_2025_Decode_Rev1Starter extends OpMode {
          * both motors work to rotate the robot. Combinations of these inputs can be used to create
          * more complex maneuvers.
          */
-        arcadeDrive(-gamepad1.left_stick_y, gamepad1.right_stick_x);
-
+        //arcadeDrive(-gamepad1.left_stick_y, gamepad1.right_stick_x);
+        double drive = gamepad1.left_stick_y;
+        double strafe = gamepad1.left_stick_x;
+        double twist  = gamepad1.right_stick_x;
         /*
          * Here we give the user control of the speed of the launcher motor without automatically
          * queuing a shot.
@@ -217,8 +238,26 @@ public class MelFalc_2025_Decode_Rev1Starter extends OpMode {
         } else if (gamepad1.b) { // stop flywheel
             launcher.setVelocity(STOP_SPEED);
         }
+        double leftFrontPower  = drive + strafe + (rotationMultiplicative*twist);
+        double rightFrontPower = drive - strafe - (rotationMultiplicative*twist);
+        double leftBackPower   = drive - strafe + (rotationMultiplicative*twist);
+        double rightBackPower  = drive + strafe - (rotationMultiplicative*twist);
+        double max;
+        max = Math.max(Math.abs(leftFrontPower), Math.abs(rightFrontPower));
+        max = Math.max(max, Math.abs(leftBackPower));
+        max = Math.max(max, Math.abs(rightBackPower));
 
-        /*
+        if (max > 1.0) {
+            leftFrontPower /= max;
+            rightFrontPower /= max;
+            leftBackPower /= max;
+            rightBackPower /= max;
+        }
+        front_left.setPower(driveMultiplicative*leftFrontPower);
+        front_right.setPower(driveMultiplicative*rightFrontPower);
+        back_left.setPower(driveMultiplicative*leftBackPower);
+        back_right.setPower(driveMultiplicative*rightBackPower);
+                    /*
          * Now we call our "Launch" function.
          */
         launch(gamepad1.rightBumperWasPressed());
@@ -239,16 +278,14 @@ public class MelFalc_2025_Decode_Rev1Starter extends OpMode {
     public void stop() {
     }
 
+   /*
     void arcadeDrive(double forward, double rotate) {
         leftPower = forward + rotate;
         rightPower = forward - rotate;
-
-        /*
-         * Send calculated power to wheels
-         */
         leftDrive.setPower(leftPower);
         rightDrive.setPower(rightPower);
     }
+ */
 
     void launch(boolean shotRequested) {
         switch (launchState) {
