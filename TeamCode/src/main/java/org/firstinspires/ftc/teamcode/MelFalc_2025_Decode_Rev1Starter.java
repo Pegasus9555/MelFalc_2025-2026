@@ -227,8 +227,8 @@ public class MelFalc_2025_Decode_Rev1Starter extends OpMode {
          */
         //arcadeDrive(-gamepad1.left_stick_y, gamepad1.right_stick_x);
         double drive = gamepad1.left_stick_y;
-        double strafe = gamepad1.left_stick_x;
-        double twist  = gamepad1.right_stick_x;
+        double strafe = -gamepad1.left_stick_x;
+        double twist  = -gamepad1.right_stick_x;
         /*
          * Here we give the user control of the speed of the launcher motor without automatically
          * queuing a shot.
