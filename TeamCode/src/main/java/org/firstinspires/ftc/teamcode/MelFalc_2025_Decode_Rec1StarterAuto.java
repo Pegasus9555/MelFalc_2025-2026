@@ -224,16 +224,16 @@ public class MelFalc_2025_Decode_Rec1StarterAuto extends OpMode
         /*
          * Here we reset the encoders on our drive motors before we start moving.
          */
-        leftDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        rightDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        //leftDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        //rightDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
         /*
          * Setting zeroPowerBehavior to BRAKE enables a "brake mode." This causes the motor to
          * slow down much faster when it is coasting. This creates a much more controllable
          * drivetrain, as the robot stops much quicker.
          */
-        leftDrive.setZeroPowerBehavior(BRAKE);
-        rightDrive.setZeroPowerBehavior(BRAKE);
+        //leftDrive.setZeroPowerBehavior(BRAKE);
+        //rightDrive.setZeroPowerBehavior(BRAKE);
         launcher.setZeroPowerBehavior(BRAKE);
 
         /*
@@ -340,8 +340,8 @@ public class MelFalc_2025_Decode_Rec1StarterAuto extends OpMode
                     if(shotsToFire > 0) {
                         autonomousState = AutonomousState.LAUNCH;
                     } else {
-                        leftDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-                        rightDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+                        //leftDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+                        //rightDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
                         launcher.setVelocity(0);
                         autonomousState = AutonomousState.DRIVING_AWAY_FROM_GOAL;
                     }
@@ -355,8 +355,8 @@ public class MelFalc_2025_Decode_Rec1StarterAuto extends OpMode
                  * Once the function returns "true" we reset the encoders again and move on.
                  */
                 if(drive(DRIVE_SPEED, -4, DistanceUnit.INCH, 1)){
-                    leftDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-                    rightDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+                    //leftDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+                    //rightDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
                     autonomousState = AutonomousState.ROTATING;
                 }
                 break;
@@ -369,8 +369,8 @@ public class MelFalc_2025_Decode_Rec1StarterAuto extends OpMode
                 }
 
                 if(rotate(ROTATE_SPEED, robotRotationAngle, AngleUnit.DEGREES,1)){
-                    leftDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-                    rightDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+                    //leftDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+                    //rightDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
                     autonomousState = AutonomousState.DRIVING_OFF_LINE;
                 }
                 break;
@@ -392,10 +392,10 @@ public class MelFalc_2025_Decode_Rec1StarterAuto extends OpMode
          */
         telemetry.addData("AutoState", autonomousState);
         telemetry.addData("LauncherState", launchState);
-        telemetry.addData("Motor Current Positions", "left (%d), right (%d)",
-                leftDrive.getCurrentPosition(), rightDrive.getCurrentPosition());
-        telemetry.addData("Motor Target Positions", "left (%d), right (%d)",
-                leftDrive.getTargetPosition(), rightDrive.getTargetPosition());
+        //telemetry.addData("Motor Current Positions", "left (%d), right (%d)",
+                //leftDrive.getCurrentPosition(), rightDrive.getCurrentPosition());
+        //telemetry.addData("Motor Target Positions", "left (%d), right (%d)",
+                //leftDrive.getTargetPosition(), rightDrive.getTargetPosition());
         telemetry.update();
     }
 
@@ -466,14 +466,14 @@ public class MelFalc_2025_Decode_Rec1StarterAuto extends OpMode
          */
         double targetPosition = (distanceUnit.toMm(distance) * TICKS_PER_MM);
 
-        leftDrive.setTargetPosition((int) targetPosition);
-        rightDrive.setTargetPosition((int) targetPosition);
+        //leftDrive.setTargetPosition((int) targetPosition);
+        //rightDrive.setTargetPosition((int) targetPosition);
 
-        leftDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        rightDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        //leftDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        //rightDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
-        leftDrive.setPower(speed);
-        rightDrive.setPower(speed);
+        //leftDrive.setPower(speed);
+        //rightDrive.setPower(speed);
 
         /*
          * Here we check if we are within tolerance of our target position or not. We calculate the
@@ -482,9 +482,9 @@ public class MelFalc_2025_Decode_Rec1StarterAuto extends OpMode
          * the driveTimer. Only after we reach the target can the timer count higher than our
          * holdSeconds variable.
          */
-        if(Math.abs(targetPosition - leftDrive.getCurrentPosition()) > (TOLERANCE_MM * TICKS_PER_MM)){
-            driveTimer.reset();
-        }
+        //if(Math.abs(targetPosition - leftDrive.getCurrentPosition()) > (TOLERANCE_MM * TICKS_PER_MM)){
+        //    driveTimer.reset();
+        //}
 
         return (driveTimer.seconds() > holdSeconds);
     }
@@ -518,18 +518,18 @@ public class MelFalc_2025_Decode_Rec1StarterAuto extends OpMode
         double leftTargetPosition = -(targetMm*TICKS_PER_MM);
         double rightTargetPosition = targetMm*TICKS_PER_MM;
 
-        leftDrive.setTargetPosition((int) leftTargetPosition);
-        rightDrive.setTargetPosition((int) rightTargetPosition);
+        //leftDrive.setTargetPosition((int) leftTargetPosition);
+        //rightDrive.setTargetPosition((int) rightTargetPosition);
 
-        leftDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        rightDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        //leftDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        //rightDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
-        leftDrive.setPower(speed);
-        rightDrive.setPower(speed);
+       // leftDrive.setPower(speed);
+       // rightDrive.setPower(speed);
 
-        if((Math.abs(leftTargetPosition - leftDrive.getCurrentPosition())) > (TOLERANCE_MM * TICKS_PER_MM)){
-            driveTimer.reset();
-        }
+        //if((Math.abs(leftTargetPosition - leftDrive.getCurrentPosition())) > (TOLERANCE_MM * TICKS_PER_MM)){
+        //    driveTimer.reset();
+        //}
 
         return (driveTimer.seconds() > holdSeconds);
     }
