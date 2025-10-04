@@ -62,7 +62,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
  * main robot "loop," continuously checking for conditions that allow us to move to the next step.
  */
 
-@Autonomous(name="StarterBotAuto", group="StarterBot")
+@Autonomous(name="MelFalc_Auto_PROD", group="StarterBot")
 //@Disabled
 public class MelFalc_2025_Decode_Rec1StarterAuto extends OpMode
 {

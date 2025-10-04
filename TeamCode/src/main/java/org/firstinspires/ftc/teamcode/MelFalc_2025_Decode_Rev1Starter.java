@@ -60,7 +60,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
  * we will also need to adjust the "PIDF" coefficients with some that are a better fit for our application.
  */
 
-@TeleOp(name = "Rev1 Starter Code", group = "Rev1")
+@TeleOp(name = "MelFalc_TeleOp_Prod", group = "Rev1")
 //@Disabled
 public class MelFalc_2025_Decode_Rev1Starter extends OpMode {
     final double FEED_TIME_SECONDS = 0.20; //The feeder servos run this long when a shot is requested.
@@ -73,8 +73,8 @@ public class MelFalc_2025_Decode_Rev1Starter extends OpMode {
      * velocity. Here we are setting the target, and minimum velocity that the launcher should run
      * at. The minimum velocity is a threshold for determining when to fire.
      */
-    final double LAUNCHER_TARGET_VELOCITY = 1125;
-    final double LAUNCHER_MIN_VELOCITY = 1075;
+    final double LAUNCHER_TARGET_VELOCITY = 1500;
+    final double LAUNCHER_MIN_VELOCITY = 1200;
 
     // Declare OpMode members.
    /*private DcMotor leftDrive = null;
