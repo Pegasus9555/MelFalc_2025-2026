@@ -76,7 +76,7 @@ public class MelFalc_2025_Decode_Rev1Starter extends OpMode {
 
      */
     private double LAUNCHER_TARGET_VELOCITY = 1150;
-    private double LAUNCHER_MIN_VELOCITY = 1025;
+    private double LAUNCHER_MIN_VELOCITY = 1075;
 
     // Declare OpMode members.
    /*private DcMotor leftDrive = null;
@@ -237,13 +237,13 @@ public class MelFalc_2025_Decode_Rev1Starter extends OpMode {
          */
         if (gamepad2.dpad_up) {
             LAUNCHER_TARGET_VELOCITY = 1250;
-            LAUNCHER_MIN_VELOCITY = 1125;
+            LAUNCHER_MIN_VELOCITY = 1175;
         } else if (gamepad2.dpad_down) {
             LAUNCHER_TARGET_VELOCITY = 1075;
-            LAUNCHER_MIN_VELOCITY = 950;
+            LAUNCHER_MIN_VELOCITY = 1000;
         } else if (gamepad2.dpad_right) {
             LAUNCHER_TARGET_VELOCITY = 1150;
-            LAUNCHER_MIN_VELOCITY = 1025;
+            LAUNCHER_MIN_VELOCITY = 1075;
         }
         if (gamepad2.y) {
             launcher.setVelocity(LAUNCHER_TARGET_VELOCITY);
@@ -273,6 +273,12 @@ public class MelFalc_2025_Decode_Rev1Starter extends OpMode {
                     /*
          * Now we call our "Launch" function.
          */
+        if(gamepad2.leftBumperWasPressed()){
+            launch(true);
+            launch(true);
+            launch(true);
+        }
+
         launch(gamepad2.rightBumperWasPressed());
         launch(gamepad1.rightBumperWasPressed());
         /*
@@ -317,9 +323,9 @@ public class MelFalc_2025_Decode_Rev1Starter extends OpMode {
                 }
                 break;
             case LAUNCH:
-                leftFeeder.setPower(FULL_SPEED);
-                rightFeeder.setPower(FULL_SPEED);
-                feederTimer.reset();
+                    leftFeeder.setPower(FULL_SPEED);
+                    rightFeeder.setPower(FULL_SPEED);
+                    feederTimer.reset();
                 launchState = LaunchState.LAUNCHING;
                 break;
             case LAUNCHING:
