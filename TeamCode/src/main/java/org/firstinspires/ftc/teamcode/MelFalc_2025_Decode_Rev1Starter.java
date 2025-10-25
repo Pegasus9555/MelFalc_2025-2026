@@ -72,9 +72,11 @@ public class MelFalc_2025_Decode_Rev1Starter extends OpMode {
      * to read the current speed of the motor and apply more or less power to keep it at a constant
      * velocity. Here we are setting the target, and minimum velocity that the launcher should run
      * at. The minimum velocity is a threshold for determining when to fire.
+     *
+
      */
-    final double LAUNCHER_TARGET_VELOCITY = 1250;
-    final double LAUNCHER_MIN_VELOCITY = 1125;
+    private double LAUNCHER_TARGET_VELOCITY = 1150;
+    private double LAUNCHER_MIN_VELOCITY = 1025;
 
     // Declare OpMode members.
    /*private DcMotor leftDrive = null;
@@ -233,11 +235,22 @@ public class MelFalc_2025_Decode_Rev1Starter extends OpMode {
          * Here we give the user control of the speed of the launcher motor without automatically
          * queuing a shot.
          */
+        if (gamepad2.dpad_up) {
+            LAUNCHER_TARGET_VELOCITY = 1250;
+            LAUNCHER_MIN_VELOCITY = 1125;
+        } else if (gamepad2.dpad_down) {
+            LAUNCHER_TARGET_VELOCITY = 1075;
+            LAUNCHER_MIN_VELOCITY = 950;
+        } else if (gamepad2.dpad_right) {
+            LAUNCHER_TARGET_VELOCITY = 1150;
+            LAUNCHER_MIN_VELOCITY = 1025;
+        }
         if (gamepad2.y) {
             launcher.setVelocity(LAUNCHER_TARGET_VELOCITY);
         } else if (gamepad2.b) { // stop flywheel
             launcher.setVelocity(STOP_SPEED);
         }
+
         double leftFrontPower  = drive + strafe + (rotationMultiplicative*twist);
         double rightFrontPower = drive - strafe - (rotationMultiplicative*twist);
         double leftBackPower   = drive - strafe + (rotationMultiplicative*twist);
@@ -260,14 +273,18 @@ public class MelFalc_2025_Decode_Rev1Starter extends OpMode {
                     /*
          * Now we call our "Launch" function.
          */
+        launch(gamepad2.rightBumperWasPressed());
         launch(gamepad1.rightBumperWasPressed());
-
         /*
          * Show the state and motor powers
          */
         telemetry.addData("State", launchState);
         telemetry.addData("Motors", "left (%.2f), right (%.2f)", leftPower, rightPower);
         telemetry.addData("motorSpeed", launcher.getVelocity());
+        telemetry.addData("Launcher Target Velocity: ",LAUNCHER_TARGET_VELOCITY);
+        telemetry.addData("Launcher Min Velocity: ",LAUNCHER_MIN_VELOCITY);
+        telemetry.addData("Launcher CURRENT Velocity: ", launcher.getVelocity());
+        telemetry.update();
 
     }
 

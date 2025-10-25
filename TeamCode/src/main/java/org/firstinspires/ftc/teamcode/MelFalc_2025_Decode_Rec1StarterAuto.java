@@ -75,8 +75,8 @@ public class MelFalc_2025_Decode_Rec1StarterAuto extends OpMode
      * velocity. Here we are setting the target and minimum velocity that the launcher should run
      * at. The minimum velocity is a threshold for determining when to fire.
      */
-    final double LAUNCHER_TARGET_VELOCITY = 1200;
-    final double LAUNCHER_MIN_VELOCITY = 1075;
+    final double LAUNCHER_TARGET_VELOCITY = 1125;
+    final double LAUNCHER_MIN_VELOCITY = 1050;
 
     /*
      * The number of seconds that we wait between each of our 3 shots from the launcher. This
@@ -94,8 +94,8 @@ public class MelFalc_2025_Decode_Rec1StarterAuto extends OpMode
      * robot. Track width is used to determine the amount of linear distance each wheel needs to
      * travel to create a specified rotation of the robot.
      */
-    final double DRIVE_SPEED = 0.5;
-    final double ROTATE_SPEED = 0.2;
+    final double DRIVE_SPEED = 0.75;
+    final double ROTATE_SPEED = 0.3;
     final double WHEEL_DIAMETER_MM = 96;
     final double ENCODER_TICKS_PER_REV = 537.7;
     final double TICKS_PER_MM = (ENCODER_TICKS_PER_REV / (WHEEL_DIAMETER_MM * Math.PI));
@@ -411,6 +411,9 @@ public class MelFalc_2025_Decode_Rec1StarterAuto extends OpMode
             front_left.getCurrentPosition(), front_right.getCurrentPosition(), back_left.getCurrentPosition(), back_right.getCurrentPosition());
         telemetry.addData("Motor Target Positions", "FrontLeft(%d), FrontRight (%d), BackLeft(%d), BackRight(%d)",
             front_left.getTargetPosition(), front_right.getTargetPosition(), back_left.getTargetPosition(), back_right.getTargetPosition());
+        telemetry.addData("Launcher Target Velocity: ",LAUNCHER_TARGET_VELOCITY);
+        telemetry.addData("Launcher Min Velocity: ",LAUNCHER_MIN_VELOCITY);
+        telemetry.addData("Launcher CURRENT Velocity: ", launcher.getVelocity());
         telemetry.update();
     }
 
