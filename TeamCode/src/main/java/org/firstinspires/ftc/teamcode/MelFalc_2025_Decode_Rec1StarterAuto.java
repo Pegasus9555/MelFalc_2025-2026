@@ -75,7 +75,7 @@ public class MelFalc_2025_Decode_Rec1StarterAuto extends OpMode
      * velocity. Here we are setting the target and minimum velocity that the launcher should run
      * at. The minimum velocity is a threshold for determining when to fire.
      */
-    final double LAUNCHER_TARGET_VELOCITY = 1125;
+    final double LAUNCHER_TARGET_VELOCITY = 1200;
     final double LAUNCHER_MIN_VELOCITY = 1075;
 
     /*
@@ -361,7 +361,7 @@ public class MelFalc_2025_Decode_Rec1StarterAuto extends OpMode
                  * the robot has been within a tolerance of the target position for "holdSeconds."
                  * Once the function returns "true" we reset the encoders again and move on.
                  */
-                if(drive(DRIVE_SPEED, -4, DistanceUnit.INCH, 1)){
+                if(drive(DRIVE_SPEED, -6, DistanceUnit.INCH, 1)){
                     //leftDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
                     //rightDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
                     front_left.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -374,9 +374,9 @@ public class MelFalc_2025_Decode_Rec1StarterAuto extends OpMode
 
             case ROTATING:
                 if(alliance == Alliance.RED){
-                    robotRotationAngle = 45;
+                    robotRotationAngle = 75;
                 } else if (alliance == Alliance.BLUE){
-                    robotRotationAngle = -45;
+                    robotRotationAngle = -75;
                 }
 
                 if(rotate(ROTATE_SPEED, robotRotationAngle, AngleUnit.DEGREES,1)){
@@ -391,7 +391,7 @@ public class MelFalc_2025_Decode_Rec1StarterAuto extends OpMode
                 break;
 
             case DRIVING_OFF_LINE:
-                if(drive(DRIVE_SPEED, -26, DistanceUnit.INCH, 1)){
+                if(drive(DRIVE_SPEED, -35, DistanceUnit.INCH, 1)){
                     autonomousState = AutonomousState.COMPLETE;
                 }
                 break;
@@ -487,9 +487,11 @@ public class MelFalc_2025_Decode_Rec1StarterAuto extends OpMode
         front_right.setTargetPosition((int) targetPosition);
         back_left.setTargetPosition((int) targetPosition);
         back_right.setTargetPosition((int) targetPosition);
-        //leftDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        //rightDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
+        back_right.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        back_left.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        front_left.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        front_right.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         //leftDrive.setPower(speed);
         //rightDrive.setPower(speed);
         front_left.setPower(speed);

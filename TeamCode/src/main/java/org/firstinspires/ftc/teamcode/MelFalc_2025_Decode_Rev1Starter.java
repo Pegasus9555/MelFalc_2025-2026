@@ -73,8 +73,8 @@ public class MelFalc_2025_Decode_Rev1Starter extends OpMode {
      * velocity. Here we are setting the target, and minimum velocity that the launcher should run
      * at. The minimum velocity is a threshold for determining when to fire.
      */
-    final double LAUNCHER_TARGET_VELOCITY = 1500;
-    final double LAUNCHER_MIN_VELOCITY = 1200;
+    final double LAUNCHER_TARGET_VELOCITY = 1250;
+    final double LAUNCHER_MIN_VELOCITY = 1125;
 
     // Declare OpMode members.
    /*private DcMotor leftDrive = null;
@@ -233,9 +233,9 @@ public class MelFalc_2025_Decode_Rev1Starter extends OpMode {
          * Here we give the user control of the speed of the launcher motor without automatically
          * queuing a shot.
          */
-        if (gamepad1.y) {
+        if (gamepad2.y) {
             launcher.setVelocity(LAUNCHER_TARGET_VELOCITY);
-        } else if (gamepad1.b) { // stop flywheel
+        } else if (gamepad2.b) { // stop flywheel
             launcher.setVelocity(STOP_SPEED);
         }
         double leftFrontPower  = drive + strafe + (rotationMultiplicative*twist);
