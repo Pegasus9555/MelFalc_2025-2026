@@ -279,8 +279,7 @@ public class MelFalc_2025_Decode_Rev1Starter extends OpMode {
          * Show the state and motor powers
          */
         telemetry.addData("State", launchState);
-        telemetry.addData("Motors", "left (%.2f), right (%.2f)", leftPower, rightPower);
-        telemetry.addData("motorSpeed", launcher.getVelocity());
+        telemetry.addData("Launcher Motor Current Speed", launcher.getVelocity());
         telemetry.addData("Launcher Target Velocity: ",LAUNCHER_TARGET_VELOCITY);
         telemetry.addData("Launcher Min Velocity: ",LAUNCHER_MIN_VELOCITY);
         telemetry.addData("Launcher CURRENT Velocity: ", launcher.getVelocity());
